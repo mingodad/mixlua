@@ -364,9 +364,11 @@ static int mix_loadfile(lua_State *L) {
 	if (fread(buffer, S.size, 1, file) != 1) {
 		lua_pushnil(L);
 		lua_pushfstring(L, "cannot read file <%>", filename);
+		fclose(file);
 		return 2;
 	}
 	S.buffer = buffer;
+	fclose(file);
 
 	return mix_loadbuffer(L, &S, filename);
 }
@@ -386,8 +388,7 @@ static const luaL_reg mix_lib[] = {
 	{NULL,         NULL          }
 };
 
-int luaopen_mixlua(lua_State *L) {
+LUALIB_API int luaopen_mixlua(lua_State *L) {
 	luaL_register(L, "mix", mix_lib);
 	return 1;
 }
-
