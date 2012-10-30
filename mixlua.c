@@ -165,7 +165,7 @@ static const char *mix_reader(lua_State *L, void *ud, size_t *size) {
 			if (c == S->d2l[0])
 				if (mix_isd2l(S))
 					break;
-			if (c == '\\' || c == '\n' || c == '\'')
+			if (c == '\\' || c == '\r' || c == '\n' || c == '\'')
 				S->temp[(*size)++] = '\\';
 			S->temp[(*size)++] = c;
 			++S->pos;
